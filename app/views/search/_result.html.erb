@@ -1,0 +1,37 @@
+
+<table>
+  <thead>
+    <tr>
+      <th width="50">Teleporter Number</th>
+      <th>Date</th>
+      <th width="150">Time</th>
+      <th width="150">Available Seat</th>
+      <th width="150">Reserved By</th>
+      <th width="150"> Reserve now </th>
+    </tr>
+  </thead>
+  <tbody>
+  <% @results.each do |teleport| %>
+    <tr>
+      <td><%= teleport.teleporter_id%></td>
+      <td><%= teleport.date %></td>
+      <td><%= teleport.time.strftime("%I:%M %p") %></td>
+      <td><%= teleport.avail_seat %></td>
+      <td>
+      	<% teleport.passengers.each do |passenger| %>
+      		<li><%= passenger.name %></li>
+      	<% end %>
+      </td>
+      <td>
+	      <div id="bookform">
+	      	<%= form_tag('/search/reserve' ) do  %>
+	      		<%= label_tag :name , 'Enter Your Name' %>
+	      		<%= text_field_tag :name  %>
+	      		<%= hidden_field_tag :id , teleport.id %>
+	      	<% end %> 
+	      </div>
+      </td>
+    </tr>
+   <% end %>
+  </tbody>
+</table>

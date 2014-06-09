@@ -1,0 +1,51 @@
+<h2 id="notice"><%= notice %> </h2>
+ <% if @reservation %>
+  <% if @reservation.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@reservation.errors.count, "error") %> prohibited this reservation from being saved:</h2>
+
+      <ul>
+      <% @reservation.errors.full_messages.each do |msg| %>
+       <li><h2><%= msg %></h2></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+<% end %>
+<section class="search">
+  <div class="row">
+    <div class="small-12 large-10 columns small-centered">
+      <h2> Welcome to BlueOrigins Teleportaion </h2>
+     	<%= form_tag('/search/show', remote: true) do  %>
+        <div class="row">
+          <div class="large-4 small-12 columns">
+            <label>
+              Departure Point
+            </label>
+              <%= collection_select(:search, :departure_id, @departures , :id, :name , :prompt => true) %>
+          </div>
+          <div class="large-4 small-6 columns">
+            <label>
+              Destination Point
+            </label>
+             <%= collection_select(:search, :destination_id, @destinations , :id, :name, :prompt => true) %>
+          </div>
+ 
+          <div class="large-3 small-12 columns expand">
+          <%= button_to 'Search' , {:action => :show, :remote => true }, {:class =>  "button expand"} %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</section> 
+<section>
+	<div class="row">
+		<div class="small-12 large-10 columns small-centered">
+			<div id="results">
+
+			</div>
+		</div>
+	</div>
+</section>             
+            
